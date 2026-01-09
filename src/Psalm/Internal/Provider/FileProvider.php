@@ -58,9 +58,24 @@ class FileProvider
             throw new UnexpectedValueException('File ' . $file_path . ' is a directory');
         }
 
+        global $GLOBAL_TYPES_STRING;
+
         $file_contents = (string) file_get_contents($file_path);
 
+        if (strpos($file_contents, '@psalm-ignore-file') !== false) {
+            echo 'Ignoring breakdance/plugin' . explode('breakdance/plugin', $file_path)[1] . ' because @psalm-ignore-file found' . "\n";
+            return "";
+        }
+
         self::$open_files[$file_path] = $file_contents;
+
+        $file_contents = str_replace("<?php", "<?php
+        " .
+
+            $GLOBAL_TYPES_STRING
+
+            . "
+        ", $file_contents);
 
         return $file_contents;
     }

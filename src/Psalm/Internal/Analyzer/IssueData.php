@@ -17,6 +17,7 @@ final class IssueData
     public const SEVERITY_ERROR = 'error';
 
     public readonly string $link;
+    public int $line_from;
 
     /**
      * @param self::SEVERITY_* $severity
@@ -25,7 +26,7 @@ final class IssueData
      */
     public function __construct(
         public string $severity,
-        public int $line_from,
+        int $line_from,
         public int $line_to,
         public readonly string $type,
         public readonly string $message,
@@ -45,6 +46,8 @@ final class IssueData
         public ?array $other_references = null,
         public readonly ?string $dupe_key = null,
     ) {
+        global $GLOBAL_TYPES_STRING_LINE_LENGTH;
+        $this->line_from = abs($line_from - $GLOBAL_TYPES_STRING_LINE_LENGTH); // ensure its a positive number in case psalm does weird shit if it isnt
         $this->link = $shortcode ? 'https://psalm.dev/' . str_pad((string) $shortcode, 3, "0", STR_PAD_LEFT) : '';
     }
 }
