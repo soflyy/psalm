@@ -63,7 +63,8 @@ class FileProvider
         $file_contents = (string) file_get_contents($file_path);
 
         if (strpos($file_contents, '@psalm-ignore-file') !== false) {
-            echo 'Ignoring breakdance/plugin' . explode('breakdance/plugin', $file_path)[1] . ' because @psalm-ignore-file found' . "\n";
+            $simplified_file_path = explode('breakdance', $file_path)[1];
+            echo 'Ignoring ' . $simplified_file_path . ' because @psalm-ignore-file found' . "\n";
             return "";
         }
 
