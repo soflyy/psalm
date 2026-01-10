@@ -65,7 +65,7 @@ class FileProvider
         if (strpos($file_contents, '@psalm-ignore-file') !== false) {
             if (strpos($file_path, 'wp-content/plugins') !== false) {
                 $simplified_file_path = substr($file_path, strpos($file_path, 'wp-content/plugins') + strlen('wp-content/plugins/'));
-                echo 'Ignoring ' . $simplified_file_path . ' because @psalm-ignore-file found' . "\n";
+                echo "\n" . 'Ignoring ' . $simplified_file_path . ' because @psalm-ignore-file found' . "\n";
             }
 
             return "";
