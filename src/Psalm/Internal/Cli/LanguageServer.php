@@ -64,6 +64,8 @@ final class LanguageServer
      */
     public static function run(array $argv): void
     {
+        require_once __DIR__ . '/../../BreakdancePatch/global-types.php';
+
         CliUtils::checkRuntimeRequirements();
         $clientConfiguration = new ClientConfiguration();
         gc_disable();

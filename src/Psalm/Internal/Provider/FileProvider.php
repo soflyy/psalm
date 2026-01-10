@@ -63,12 +63,13 @@ class FileProvider
         $file_contents = (string) file_get_contents($file_path);
 
         if (strpos($file_contents, '@psalm-ignore-file') !== false) {
-            $simplified_file_path = explode('breakdance', $file_path)[1];
-            echo 'Ignoring ' . $simplified_file_path . ' because @psalm-ignore-file found' . "\n";
+            if (strpos($file_path, 'wp-content/plugins') !== false) {
+                $simplified_file_path = substr($file_path, strpos($file_path, 'wp-content/plugins') + strlen('wp-content/plugins/'));
+                echo 'Ignoring ' . $simplified_file_path . ' because @psalm-ignore-file found' . "\n";
+            }
+
             return "";
         }
-
-        self::$open_files[$file_path] = $file_contents;
 
         $file_contents = str_replace("<?php", "<?php
         " .
@@ -77,6 +78,8 @@ class FileProvider
 
             . "
         ", $file_contents);
+
+        self::$open_files[$file_path] = $file_contents;
 
         return $file_contents;
     }

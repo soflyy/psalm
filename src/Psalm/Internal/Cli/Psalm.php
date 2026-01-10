@@ -102,7 +102,6 @@ require_once __DIR__ . '/../Composer.php';
 require_once __DIR__ . '/../IncludeCollector.php';
 require_once __DIR__ . '/../../IssueBuffer.php';
 require_once __DIR__ . '/../../Report.php';
-require_once __DIR__ . '/../../BreakdancePatch/global-types.php';
 
 /**
  * @internal
@@ -358,6 +357,9 @@ final class Psalm
         if (is_string($report_file_paths)) {
             $report_file_paths = [$report_file_paths];
         }
+
+
+        require_once __DIR__ . '/../../BreakdancePatch/global-types.php';
 
         $project_analyzer = new ProjectAnalyzer(
             $config,
