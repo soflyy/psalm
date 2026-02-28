@@ -1,0 +1,19 @@
+--- a/src/Exporter.php
++++ b/src/Exporter.php
+@@ -39,13 +39,9 @@
+ /**
+  * A nifty utility for visualizing PHP variables.
+  *
+- * <code>
+- * <?php
+- * use SebastianBergmann\Exporter\Exporter;
+- *
+- * $exporter = new Exporter;
+- * print $exporter->export(new Exception);
+- * </code>
++ * Example:
++ *   $exporter = new Exporter;
++ *   print $exporter->export(new Exception);
+  */
+ class Exporter
+ {
